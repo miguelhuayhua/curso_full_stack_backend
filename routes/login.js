@@ -40,7 +40,7 @@ LOGIN_ROUTER.post('/signin', async (req, res) => {
                 token: refreshToken, expira_en: new Date(), usuario_id: usuario.id
             }
         })
-        res.cookie("refreshToken", refreshToken);
+        res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 60 * 60 * 24 * 7 });
         return res.json({ accessToken, estado: 200, mensaje: "Usuario logueado exitosamente" }).status(200);
     }
     else {
